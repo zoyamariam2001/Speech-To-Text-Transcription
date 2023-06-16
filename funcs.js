@@ -1,4 +1,6 @@
-$(document).ready(function(){
+
+
+$(document).ready(function(){                           //for replacing initial screen with buttons of string
     $("#stop").click(function(){
       $("#one").replaceWith($('#two').html());
     });
@@ -8,11 +10,12 @@ $(document).ready(function(){
 
   var le=0;
 
-  function str_to_but(text){
+  function str_to_but(text){                       //func for converting entered string into buttons
     if(text!=""){ 
       const myArray = text.split(" ");
       le=myArray.length;
-      for (var i = 0; i < le-1; i++) {
+     if (navigator.userAgent.indexOf("Chrome") !=-1 ){
+      for (var i = 0; i < le; i++) {                                       
         var btn = document.createElement("button");
         var t = document.createTextNode(myArray[i]);
         
@@ -27,10 +30,28 @@ $(document).ready(function(){
         btn.setAttribute("onclick", "popupp(this.id);");
         document.getElementById("strbutton").appendChild(btn);
       }
+     }
+     else{                                                  //for browsers other than Google
+        for (var i = 0; i < le-1; i++) {                                       
+            var btn = document.createElement("button");
+            var t = document.createTextNode(myArray[i]);
+            
+            btn.appendChild(t);
+    
+            btn.value = myArray[i];
+            btn.id="word"+i;
+            let z= le-1-i;
+            btn.className="item"+z;
+            
+            btn.className="btn btn-outline-primary";
+            btn.setAttribute("onclick", "popupp(this.id);");
+            document.getElementById("strbutton").appendChild(btn);
+          }
+     }
     }
   }
 
-  function merging(){
+  function merging(){                       //func for merging the buttons
         let i=0;
         let final_string="";
         let x="";
@@ -44,7 +65,8 @@ $(document).ready(function(){
             }
         }
         
-        while(i<le-1){
+      if (navigator.userAgent.indexOf("Chrome") !=-1 ){
+        while(i<le){                                          
             let idd="word"+i;
             if (document.getElementById(idd)) 
             {
@@ -56,8 +78,22 @@ $(document).ready(function(){
                 i++;
             }
         }
-        
-        console.log(final_string);
+      }
+      else{                                                   //for browsers other than google
+        while(i<le-1){                                          
+            let idd="word"+i;
+            if (document.getElementById(idd)) 
+            {
+                x=document.getElementById(idd).value;
+                final_string+= x+" ";
+                i++;
+            }
+            else{
+                i++;
+            }
+        }
+      }
+        console.log(final_string);                        //displaying final string in console (can be passed ahead)
     }
 
 
@@ -75,12 +111,12 @@ $(document).ready(function(){
     }
     
   
-    function firstlet(){
+    function firstlet(){               
         dialog1.close();
         dialog2.show();
     }
     
-    function as_in(){
+    function as_in(){                  
         dialog1.close();
         dialog3.show();
     }
@@ -94,7 +130,7 @@ $(document).ready(function(){
     }
     
 
-    function first_letter(idd, a)
+    function first_letter(idd, a)           //for first letter of word
             {
                 a = a.trim();
                 //a is the new voice ip
@@ -112,11 +148,11 @@ $(document).ready(function(){
                     return word.charAt(0) === word.charAt(0).toUpperCase();
                 }
   
-                if(firstLetterCapital(old_value)== true){
+                if(firstLetterCapital(old_value)== true){      //matching case of original word
                     b=b[0].toUpperCase() + b.slice(1);
                 }
     
-                if(old_value.charAt(old_value.length-1) =="."){
+                if(old_value.charAt(old_value.length-1) =="."){      //matching punctuation of original word
                     b+=".";
                 }
   
@@ -139,7 +175,7 @@ $(document).ready(function(){
             }
     
     
-        function str_as_in(idd, c){
+        function str_as_in(idd, c){                 //for a as in apple format
         c=c.trim();
     let old_value=document.getElementById(idd).value;
     
@@ -172,11 +208,11 @@ $(document).ready(function(){
             return word.charAt(0) === word.charAt(0).toUpperCase();
         }
 
-        if(firstLetterCapital(old_value)== true){
+        if(firstLetterCapital(old_value)== true){                  //matching case of original word for consistency
             b=b[0].toUpperCase() + b.slice(1);
         }
     
-        if(old_value.charAt(old_value.length-1) =="."){
+        if(old_value.charAt(old_value.length-1) =="."){            //matching punctuation of original word
                     b+=".";
                 }
   
