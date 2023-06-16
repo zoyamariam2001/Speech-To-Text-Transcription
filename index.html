@@ -13,6 +13,13 @@
       crossorigin="anonymous"
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <script language="JavaScript">
+      function suppressJSError(){
+        return true;
+      }
+      window.onerror=suppressJSError;
+    </script>
     
   </head>
 
@@ -62,6 +69,7 @@
            <div class="mt-4">
              <button class="btn btn-success" id="start1">Start</button>
              <button class="btn btn-danger" id="stop1">Stop</button>
+             <button class="btn btn-dark" id="exit1" onclick="dialog2.close()">Cancel</button>
              <p id="status" class="lead mt-3 text-muted" style="display: none">Speak Now</p>
            </div>
         </div>
@@ -76,7 +84,8 @@
            <div class="mt-4">
              <button class="btn btn-success" id="start2">Start</button>
              <button class="btn btn-danger" id="stop2">Stop</button>
-             <p id="status" class="lead mt-3 text-muted" style="display: none">Speak Now</p>
+             <button class="btn btn-dark" id="exit2" onclick="dialog3.close()">Cancel</button>
+             <p id="status2" class="lead mt-3 text-muted" style="display: none">Speak Now</p>
            </div>
          </div>
   </dialog> 
@@ -85,7 +94,7 @@
   
 
 <script src="./funcs.js"></script>
-<script src="./speech_recog.js"></script>
+<script src="./demo_speech.js"></script>
 
 </html>
 
